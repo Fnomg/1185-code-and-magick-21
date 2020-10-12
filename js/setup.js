@@ -9,9 +9,12 @@ const COUNT_WIZARDS = 4;
 const setup = document.querySelector(`.setup`);
 const similarWizardTemplate = document.querySelector(`#similar-wizard-template`).content.querySelector(`.setup-similar-item`);
 const similarListElement = setup.querySelector(`.setup-similar-list`);
+const setupOpen = document.querySelector(`.setup-open`);
+const setupClose = document.querySelector(`.setup-close`);
+const setupOpenIcon = setupOpen.querySelector(`.setup-open-icon`);
+const setupUserName = setup.querySelector(`.setup-user-name`)
 
 document.querySelector(`.setup-similar`).classList.remove(`hidden`);
-setup.classList.remove(`hidden`);
 
 const getRandomNumber = function (min, max) {
   min = Math.ceil(min);
@@ -53,3 +56,41 @@ for (let i = 0; i < arrWizards.length; i++) {
 }
 similarListElement.appendChild(fragment);
 
+const onPopupEscPress = function (evt) {
+  if (document.activeElement === setupUserName) {
+    return evt
+  } else if (evt.key === `Escape`) {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+const openPopup = function () {
+  setup.classList.remove(`hidden`);
+  document.addEventListener(`keydown`, onPopupEscPress);
+};
+
+const closePopup = function () {
+  setup.classList.add(`hidden`);
+  document.removeEventListener(`keydown`, onPopupEscPress)
+};
+
+setupOpen.addEventListener(`click`, function () {
+  openPopup();
+});
+
+setupClose.addEventListener(`click`, function () {
+  closePopup();
+});
+
+setupOpen.addEventListener(`keydown`, function (evt) {
+  if (evt.key === 'Enter') {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener(`keydown`, function (evt) {
+  if (evt.key === `Escape` || evt.key === `Enter` ) {
+    closePopup();
+  }
+});
