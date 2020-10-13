@@ -16,6 +16,7 @@ const setupUserName = setup.querySelector(`.setup-user-name`);
 const wizardCoat = document.querySelector(`.wizard-coat`);
 const wizardEye = document.querySelector(`.wizard-eyes`);
 const wizardFireball = document.querySelector(`.setup-fireball-wrap`);
+const setupPlayerCoatColor = document.querySelector(`[name="coat-color"]`);
 
 document.querySelector(`.setup-similar`).classList.remove(`hidden`);
 
@@ -59,10 +60,12 @@ for (let i = 0; i < arrWizards.length; i++) {
 }
 similarListElement.appendChild(fragment);
 
+let curElement = function () {
+  return document.activeElement;
+};
+
 const onPopupEscPress = function (evt) {
-  if (document.activeElement === setupUserName) {
-    evt.preventDefault();
-  } else if (evt.key === `Escape`) {
+  if (evt.key === `Escape` && curElement() !== setupUserName) {
     evt.preventDefault();
     closePopup();
   }
@@ -103,10 +106,11 @@ const getRandomCoatColor = function () {
   return coatColor;
 };
 
+
 const setCoatColor = function () {
   const newCoatColor = getRandomCoatColor();
   wizardCoat.style.fill = newCoatColor;
-  document.querySelector(`[name="coat-color"]`).value = newCoatColor;
+  setupPlayerCoatColor.value = newCoatColor;
 };
 
 wizardCoat.addEventListener(`click`, function () {
