@@ -17,6 +17,8 @@ const wizardCoat = document.querySelector(`.wizard-coat`);
 const wizardEye = document.querySelector(`.wizard-eyes`);
 const wizardFireball = document.querySelector(`.setup-fireball-wrap`);
 const setupPlayerCoatColor = document.querySelector(`[name="coat-color"]`);
+const setupPlayerFireballColor = document.querySelector(`[name="fireball-color"]`);
+const setupPlayerEyesColor = document.querySelector(`[name="eyes-color"]`);
 
 document.querySelector(`.setup-similar`).classList.remove(`hidden`);
 
@@ -60,12 +62,8 @@ for (let i = 0; i < arrWizards.length; i++) {
 }
 similarListElement.appendChild(fragment);
 
-let curElement = function () {
-  return document.activeElement;
-};
-
 const onPopupEscPress = function (evt) {
-  if (evt.key === `Escape` && curElement() !== setupUserName) {
+  if (evt.key === `Escape` && document.activeElement !== setupUserName) {
     evt.preventDefault();
     closePopup();
   }
@@ -125,7 +123,7 @@ const getRandomEyeColor = function () {
 const setEyeColor = function () {
   const newEyeColor = getRandomEyeColor();
   wizardEye.style.fill = newEyeColor;
-  document.querySelector(`[name="eyes-color"]`).value = newEyeColor;
+  setupPlayerEyesColor.value = newEyeColor;
 };
 
 wizardEye.addEventListener(`click`, function () {
@@ -140,7 +138,7 @@ const getRandomFireballColor = function () {
 const setFireballColor = function () {
   const fireballColor = getRandomFireballColor();
   wizardFireball.style.background = fireballColor;
-  document.querySelector(`[name="fireball-color"]`).value = fireballColor;
+  setupPlayerFireballColor.value = fireballColor;
 };
 
 wizardFireball.addEventListener(`click`, function () {
